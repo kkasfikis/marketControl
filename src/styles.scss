@@ -1,1 +1,40 @@
-/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+@include mat.core();
+
+$marketControl-primary: mat.define-palette(mat.$indigo-palette);
+$marketControl-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+$marketControl-warn: mat.define-palette(mat.$red-palette);
+
+$marketControl-theme: mat.define-light-theme((
+  color: (
+    primary: $marketControl-primary,
+    accent: $marketControl-accent,
+    warn: $marketControl-warn,
+  )
+));
+
+$marketControl-dark-theme: mat.define-dark-theme(
+  (
+    color: (
+      primary: $marketControl-primary,
+      accent: $marketControl-accent,
+      warn: $marketControl-warn,
+    ),
+  )
+);
+
+
+@include mat.all-component-themes($marketControl-theme);
+@import './app/custom-table/responsive-custom-table/responsive-custom-table.directive.scss';
+
+.darkMode {
+  @include mat.all-component-colors($marketControl-dark-theme);
+}
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

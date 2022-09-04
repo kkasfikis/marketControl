@@ -1,0 +1,39 @@
+<app-table-filters *ngIf="table?.isFilterable"></app-table-filters>
+
+<div fxFlex="100" fxLayout="column">
+    <div fxFlex="100" fxLayoutAlign="center center" *ngIf="isLoading">
+        <mat-spinner></mat-spinner>
+    </div>
+    
+    <div fxFlex="100" fxLayout="column" fxLayoutAlign="center" *ngIf=" !isLoading">
+        <table  mat-table responsive-custom-table matSort (matSortChange)="announceSortChange($event)" [dataSource]="tableDataSource" class="mat-elevation-z8">
+            
+            <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
+              <th mat-header-cell *matHeaderCellDef> {{column}} </th>
+              <td mat-cell *matCellDef="let element" > {{element[column]}} </td>
+            </ng-container>
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef> actions</th>
+                <td mat-cell *matCellDef = "let element">
+                  <ng-container  *ngFor="let action of element['actions']">
+                    <button mat-raised-button color="{{action.color ?? 'primary'}}" (click)="action.callbackFunc({})" ><mat-icon>{{action.icon}}</mat-icon></button>
+                  </ng-container>
+                </td>
+              </ng-container>
+          
+          
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsExtended"></tr>
+            <tr mat-row *matRowDef="let row; columns:displayedColumnsExtended"></tr>
+        </table>
+        <mat-paginator [length]="dataLength"
+                       [pageSize]="pageSize"
+                       [pageSizeOptions]="pageSizeOptions"
+                       aria-label="Select page">
+        </mat-paginator>
+    </div>
+    
+    <div fxFlex="100" fxLayoutAlign="center center" *ngIf="isEmpty">
+        <h3>No items to display</h3>
+    </div>
+
+</div>

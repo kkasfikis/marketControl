@@ -1,0 +1,12 @@
+
+<form (ngSubmit)="undefined" [formGroup]="form">
+
+    <div *ngFor="let formField of formFields" class="form-row">
+        <app-dynamic-form-field [formField]="formField" [form]="form"></app-dynamic-form-field>
+    </div>
+
+    <div class="form-row">
+        <button type="submit" [disabled]="!form.valid">Save</button>
+    </div>
+</form>
+  
